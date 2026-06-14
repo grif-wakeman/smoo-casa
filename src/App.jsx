@@ -57,7 +57,7 @@ const CSS = `
 .smoo .brand b{font-weight:700; font-size:23px; letter-spacing:-1px; color:var(--ink);}
 .smoo .brand small{font-weight:500; font-size:12px; color:var(--sage);}
 
-.smoo .control{position:sticky; top:0; z-index:20; background:var(--bg); padding:11px 0 10px; border-bottom:1px solid var(--line);}
+.smoo .control{z-index:20; background:var(--bg); padding:11px 0 10px; border-bottom:1px solid var(--line);}
 .smoo .control.flow{position:static;}
 .smoo .selbar{display:flex; align-items:center; gap:9px; justify-content:space-between; cursor:pointer; user-select:none; min-height:34px;}
 .smoo .selbar:hover .chev{color:var(--leaf-deep);}
@@ -162,32 +162,6 @@ export default function App() {
   const instant = useRef(false);
 
   const setCond = (v) => { lockUntil.current = Date.now() + 450; condRef.current = v; setCondensed(v); };
-
-  useEffect(() => {
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(() => {
-        const y = scrollY(); lastY.current = y;
-        if (refineOpenRef.current) {
-          const pel = panelRef.current;
-          if (pel && pel.getBoundingClientRect().bottom < 64) {
-            instant.current = true;
-            refineOpenRef.current = false;
-            setRefineOpen(false);
-            setCond(true);
-          }
-          ticking = false; return;
-        }
-        if (Date.now() < lockUntil.current) { ticking = false; return; }
-        if (y > 48) { if (!condRef.current) setCond(true); }
-        else if (y < 12) { if (condRef.current) setCond(false); }
-        ticking = false;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     const el = panelRef.current; if (!el) return;
