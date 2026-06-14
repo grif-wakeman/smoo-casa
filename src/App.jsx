@@ -226,6 +226,11 @@ export default function App() {
 
   useEffect(() => { refineOpenRef.current = refineOpen; }, [refineOpen]);
 
+  useEffect(() => {
+    const scrollable = sel.length > 0 || refineOpen;
+    document.documentElement.style.overscrollBehaviorY = scrollable ? '' : 'none';
+  }, [sel, refineOpen]);
+
   const onPanelEnd = (e) => {
     if (e.propertyName !== 'max-height') return;
     const el = panelRef.current; if (!el) return;
@@ -244,7 +249,7 @@ export default function App() {
     const nv = !refineOpenRef.current; refineOpenRef.current = nv;
     setRefineOpen(nv); setExpanded(false);
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: nv ? 'smooth' : 'auto' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }));
   };
   const filtersActive = dietSel.length > 0 || seasonSel.length > 0 || avoidSel.length > 0;
