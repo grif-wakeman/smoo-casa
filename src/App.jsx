@@ -243,7 +243,9 @@ export default function App() {
   const toggleRefine = () => {
     const nv = !refineOpenRef.current; refineOpenRef.current = nv;
     setRefineOpen(nv); setExpanded(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: nv ? 'smooth' : 'auto' });
+    }));
   };
   const filtersActive = dietSel.length > 0 || seasonSel.length > 0 || avoidSel.length > 0;
   const avoidKw = useMemo(() => { const out = []; AVOID.forEach(a => { if (avoidSel.includes(a.e)) a.kw.forEach(k => out.push(k)); }); return out; }, [avoidSel]);
