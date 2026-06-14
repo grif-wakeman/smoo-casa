@@ -44,7 +44,16 @@ const CSS = `
 }
 .smoo .wrap{max-width:620px; margin:0 auto;}
 .smoo .head{padding-top:16px;}
-.smoo .brand{display:flex; align-items:baseline; gap:2px;}
+.smoo .brand{display:flex; align-items:center; gap:9px;}
+.smoo .brand .word{display:flex; align-items:baseline; gap:2px;}
+.smoo .glass{width:30px; height:37px; flex:none; transform:rotate(-9deg); transform-origin:55% 92%;}
+.smoo .glass .g-body{fill:var(--surface);}
+.smoo .glass .g-fill{fill:var(--leaf);}
+.smoo .glass .g-top{fill:#5AA876;}
+.smoo .glass .g-bub{fill:#ffffff; opacity:.34;}
+.smoo .glass .g-outline{fill:none; stroke:var(--leaf-deep); stroke-width:1.6; stroke-linejoin:round;}
+.smoo .glass .g-straw{fill:none; stroke:var(--warn); stroke-width:2.4; stroke-linecap:round;}
+.smoo .glass .g-leaf{fill:var(--leaf-deep);}
 .smoo .brand b{font-weight:700; font-size:23px; letter-spacing:-1px; color:var(--ink);}
 .smoo .brand small{font-weight:500; font-size:12px; color:var(--sage);}
 
@@ -279,7 +288,19 @@ export default function App(){
       <style>{CSS}</style>
       <div className="wrap">
         <div className="head">
-          <div className="brand"><b>smoo</b><small>.casa</small></div>
+          <div className="brand">
+            <svg className="glass" viewBox="0 0 28 34" aria-hidden="true">
+              <path className="g-body" d="M5.5 7 L22.5 7 L20.3 29 Q19.9 31.4 17.6 31.4 L10.4 31.4 Q8.1 31.4 7.7 29 Z"/>
+              <path className="g-fill" d="M6.1 12 L21.9 12 L20.3 29 Q19.9 31.4 17.6 31.4 L10.4 31.4 Q8.1 31.4 7.7 29 Z"/>
+              <ellipse className="g-top" cx="14" cy="12" rx="7.6" ry="1.3"/>
+              <circle className="g-bub" cx="11" cy="18.5" r="1.1"/>
+              <circle className="g-bub" cx="13.6" cy="23" r="0.8"/>
+              <path className="g-outline" d="M5.5 7 L22.5 7 L20.3 29 Q19.9 31.4 17.6 31.4 L10.4 31.4 Q8.1 31.4 7.7 29 Z"/>
+              <path className="g-straw" d="M14.8 16 L19.8 2.6"/>
+              <path className="g-leaf" d="M8.7 6.5 Q4.8 5.0 5.7 1.3 Q9.6 2.8 8.7 6.5 Z"/>
+            </svg>
+            <span className="word"><b>smoo</b><small>.casa</small></span>
+          </div>
         </div>
 
         <div className={"control"+(refineOpen?" flow":"")}>
