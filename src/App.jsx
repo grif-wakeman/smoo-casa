@@ -160,7 +160,7 @@ export default function App() {
   const lockUntil = useRef(0);
   const refineOpenRef = useRef(false);
   const instant = useRef(false);
-  const refineRef = useRef(null);
+
 
   const setCond = (v) => { lockUntil.current = Date.now() + 450; condRef.current = v; setCondensed(v); };
 
@@ -219,11 +219,7 @@ export default function App() {
     const nv = !refineOpenRef.current; refineOpenRef.current = nv;
     setRefineOpen(nv); setExpanded(false);
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      if (nv && refineRef.current) {
-        refineRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: nv ? document.documentElement.scrollHeight : 0, behavior: 'smooth' });
     }));
   };
   const filtersActive = dietSel.length > 0 || seasonSel.length > 0 || avoidSel.length > 0;
@@ -321,7 +317,7 @@ export default function App() {
               {(sel.length > 0 || filtersActive) && <button className="link" onClick={clearAll}>clear all</button>}
             </div>
             {refineOpen && (
-              <div className="refine" ref={refineRef}>
+              <div className="refine">
                 <div className="frow">
                   <div className="flabel">diet</div>
                   <div className="fchips">
